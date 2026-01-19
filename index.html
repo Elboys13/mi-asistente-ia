@@ -1,24 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>IA Chat - Proyecto Colaborativo</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
-    <div class="tarjeta">
-        <h1>Mi Perfil Tecnológico</h1>
-        
-       <img src="avatar.jpeg" id="fotoPerfil" alt="Mi Avatar Robot">
-        
-        <p>Estado: <span id="estado">QUE TAL TE SIENTES</span></p>
-        
-        <input type="text" id="campoNombre" placeholder="Preguntame lo que sea. . .">
-        <button id="miBoton">Enviar mensaje</button>
+
+    <div class="contenedor-principal">
+       <div class="avatar-seccion">
+    <img src="avatar.jpeg" id="robot-img" alt="IA Avatar">
     </div>
 
-    <link rel="stylesheet" href="style.css">
+        <div id="pantalla">
+            <p id="texto-robot">Hola. Soy tu asistente. ¿Sobre quién o qué quieres investigar hoy?</p>
+        </div>
+
+        <div class="entrada-area">
+            <input type="text" id="entrada-usuario" placeholder="Escribe tu pregunta aquí..." autocomplete="off">
+            <div class="grupo-botones">
+                <button id="botonEnviar">Enviar</button>
+                <button id="botonDetener">Detener</button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
