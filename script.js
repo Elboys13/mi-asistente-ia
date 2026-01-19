@@ -1,55 +1,65 @@
+// 1. CONEXIÓN CON EL HTML
 const boton = document.getElementById('miBoton');
 const input = document.getElementById('campoNombre');
 const etiquetaEstado = document.getElementById('estado');
+let intervaloEscritura; // Para controlar el efecto de la máquina de escribir
 
-// --- BASE DE CONOCIMIENTOS ---
+// 2. BASE DE CONOCIMIENTOS (Añade aquí lo que quieras)
 const sabiduria = {
-    "hola": "¡Hola! Soy tu asistente inteligente. ¿En qué puedo ayudarte hoy?",
-    "quien eres": "Soy una pequeña IA creada para aprender contigo.",
-    "clima": "No tengo termómetro, pero mi procesador está a una temperatura óptima.",
-    "javascript": "Es el lenguaje que me permite pensar y escribirte así."
+    "hola": "¡Hola! Soy tu asistente inteligente. ¿En qué puedo ayudarte?",
+    "quien eres": "Soy una IA pequeña creada para aprender programación.",
+    "clima": "No tengo sensores, pero mi procesador está funcionando al 100%.",
+    "javascript": "Es el lenguaje que me permite pensar y responderte.",
+    "pizza": "Es el combustible favorito de los programadores.",
+    "ayuda": "Puedo calcular matemáticas, responder preguntas básicas o simplemente charlar."
 };
 
-// --- FUNCIÓN PARA EL EFECTO DE ESCRITURA (Tipo ChatGPT) ---
+// 3. FUNCIÓN PARA EL EFECTO DE ESCRITURA (Tipo ChatGPT)
 function escribirRespuesta(texto) {
-    etiquetaEstado.innerText = ""; // Limpiamos el texto actual
+    clearInterval(intervaloEscritura); // Detenemos cualquier escritura previa
+    etiquetaEstado.innerText = ""; 
     let i = 0;
     
-    // Creamos un intervalo que pone una letra cada 30 milisegundos
-    const intervalo = setInterval(() => {
+    intervaloEscritura = setInterval(() => {
         if (i < texto.length) {
             etiquetaEstado.innerText += texto.charAt(i);
             i++;
         } else {
-            clearInterval(intervalo); // Cuando termina de escribir, se detiene
+            clearInterval(intervaloEscritura);
         }
-    }, 30);
+    }, 30); // Velocidad de escritura (30ms por letra)
 }
 
-// --- LOGICA DE MATEMATICAS MEJORADA ---
+// 4. LÓGICA DE MATEMÁTICAS MEJORADA
 function resolverMates(frase) {
-    // Limpiamos la frase para dejar solo números y símbolos (+ - * / . )
-    const operacion = frase.replace(/[a-zA-Z?¿!¡]/g, "").trim();
+    // NUEVA LÍNEA: Cambiamos 'x' por '*' antes de limpiar
+    let textoLimpio = frase.replace(/x/g, "*"); 
+    
+    // Filtramos para dejar solo números y símbolos matemáticos
+    const limpieza = textoLimpio.replace(/[^0-9+\-*/().]/g, ""); 
+    
+    if (!/\d/.test(limpieza)) return null;
+
     try {
-        if (operacion === "") return null;
-        return eval(operacion); // Calcula la operación limpia
+        const calculo = new Function('return ' + limpieza)();
+        return calculo;
     } catch {
         return null;
     }
 }
 
-// --- EVENTO PRINCIPAL ---
+// 5. EVENTO AL HACER CLIC EN EL BOTÓN
 boton.addEventListener('click', () => {
     const mensaje = input.value.toLowerCase().trim();
     let respuestaFinal = "";
 
-    // 1. Prioridad: ¿Es una pregunta matemática?
+    // A. Intentamos resolver como matemática primero
     const resultadoMates = resolverMates(mensaje);
     
-    if (resultadoMates !== null) {
-        respuestaFinal = "El cálculo da: " + resultadoMates + ". ¡Soy un genio!";
+    if (resultadoMates !== null && !isNaN(resultadoMates)) {
+        respuestaFinal = "El resultado es: " + resultadoMates + ". ¡Soy un genio!";
     } 
-    // 2. ¿Está en mi base de conocimientos?
+    // B. Si no es mate, buscamos en la sabiduría
     else {
         let encontrado = false;
         for (let clave in sabiduria) {
@@ -60,13 +70,17 @@ boton.addEventListener('click', () => {
             }
         }
         
-        // 3. Respuesta por defecto
+        // C. Si no entiende nada de lo anterior
         if (!encontrado) {
-            respuestaFinal = (mensaje === "") ? "Dime algo..." : "Interesante pregunta... No lo sé todavía, pero lo anotaré en mi base de datos.";
+            if (mensaje === "") {
+                respuestaFinal = "No has escrito nada... ¿estás ahí?";
+            } else {
+                respuestaFinal = "Aún no sé sobre '" + mensaje + "', pero lo anotaré para mi próxima actualización.";
+            }
         }
     }
 
     // DISPARAMOS EL EFECTO DE ESCRITURA
     escribirRespuesta(respuestaFinal);
-    input.value = ""; 
+    input.value = ""; // Limpiamos el buscador
 });
