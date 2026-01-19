@@ -1,0 +1,13 @@
+.tarjeta {
+    /* ... lo que ya tenías ... */
+    width: 350px; /* Un poco más ancha para que quepan las frases */
+    min-height: 400px; /* Para que la tarjeta no cambie de tamaño al escribir */
+}
+
+#estado {
+    display: block;
+    margin-top: 20px;
+    line-height: 1.5; /* Da espacio entre líneas si el texto baja */
+    word-wrap: break-word; /* Obliga a que las palabras no se amontonen */
+    white-space: pre-wrap; /* ¡ESTA ES LA CLAVE! Mantiene los espacios que JS envía */
+}
