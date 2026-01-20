@@ -3,27 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IA Chat - Proyecto Colaborativo</title>
+    <title>Mi Chatbot de Wikipedia</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <button id="menu-toggle" class="btn-menu">☰</button>
+
     <div class="contenedor-principal">
-       <div class="avatar-seccion">
-    <img src="avatar.jpeg" id="robot-img" alt="IA Avatar">
-    </div>
-
-        <div id="pantalla">
-            <p id="texto-robot">Hola. Soy tu asistente. ¿Sobre quién o qué quieres investigar hoy?</p>
-        </div>
-
-        <div class="entrada-area">
-            <input type="text" id="entrada-usuario" placeholder="Escribe tu pregunta aquí..." autocomplete="off">
-            <div class="grupo-botones">
-                <button id="botonEnviar">Enviar</button>
-                <button id="botonDetener">Detener</button>
+        
+        <aside class="barra-lateral" id="barra-lateral">
+            <div class="header-sidebar">
+                <button id="nueva-seccion" class="btn-nuevo">+ Nueva Conversación</button>
             </div>
-        </div>
+            <div id="lista-secciones" class="lista-secciones"></div>
+        </aside>
+
+        <main class="chat-area">
+            <section id="pantalla" class="pantalla-mensajes"></section>
+
+            <footer class="entrada-area">
+                <div class="input-container">
+                    <input type="text" id="entrada-usuario" placeholder="Pregunta algo..." autocomplete="off">
+                    
+                    <div class="botones-derecha">
+                        <button id="btn-detener" class="btn-stop">Detener</button>
+                        <button id="botonEnviar" class="btn-enviar">Enviar</button>
+                    </div>
+                </div>
+            </footer>
+
+        </main>
     </div>
 
     <script src="script.js"></script>

@@ -1,120 +1,143 @@
-/* 1. CONFIGURACIÓN GENERAL */
-body {
-    background-color: #343541; /* Gris oscuro profundo */
-    color: #ECECF1; /* Texto blanco suave */
-    font-family: 'Inter', 'Segoe UI', Helvetica, Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    background-color: #121212; 
+    color: white; 
     height: 100vh;
-    margin: 0;
+    overflow: hidden;
 }
 
-/* 2. CONTENEDOR DEL CHAT */
-.contenedor-principal {
-    width: 95%;
-    max-width: 700px;
-    background-color: #444654; /* Gris un poco más claro para el chat */
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    display: flex;
-    flex-direction: column;
+.contenedor-principal { 
+    display: flex; 
+    height: 100vh; 
+    width: 100vw;
 }
 
-/* 3. AVATAR (Tu imagen .jpeg) */
-.avatar-seccion {
-    text-align: center;
-    margin-bottom: 25px;
-}
-
-#robot-img {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%; /* Hace la imagen redonda */
-    border: 3px solid #10a37f; /* Aro verde tipo IA */
-    object-fit: cover; /* Evita que la foto se estire feo */
-    background-color: #202123;
-}
-
-/* 4. PANTALLA DE CONVERSACIÓN */
-#pantalla {
-    min-height: 200px;
-    max-height: 400px;
-    overflow-y: auto; /* Permite scroll si el texto es muy largo */
-    background-color: rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    line-height: 1.6; /* Espaciado cómodo para leer */
-    font-size: 1.05rem;
-    border: 1px solid #565869;
-}
-
-/* 5. ÁREA DE ENTRADA Y BOTONES */
-.entrada-area {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-input {
-    background-color: #40414F;
-    border: 1px solid #565869;
-    color: white;
+/* BARRA LATERAL */
+.barra-lateral { 
+    width: 260px; 
+    background-color: #171717; 
+    display: flex; 
+    flex-direction: column; 
+    border-right: 1px solid #333;
     padding: 15px;
-    font-size: 1rem;
-    border-radius: 8px;
-    outline: none;
-    transition: border 0.3s;
 }
 
-input:focus {
-    border-color: #10a37f; /* Brilla verde al escribir */
+#nueva-seccion { 
+    background-color: #007acc; 
+    color: white; 
+    border: none; 
+    padding: 12px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-weight: bold;
+    margin-bottom: 20px;
 }
 
-/* 6. ESTILO DE BOTONES */
-.grupo-botones {
-    display: flex;
-    gap: 10px;
+#lista-secciones { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
+    overflow-y: auto; 
 }
 
-button {
-    flex: 1;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
+.btn-seccion { 
+    background: #212121; 
+    color: #ececec; 
+    border: none; 
+    padding: 10px; 
+    text-align: left; 
+    border-radius: 6px; 
     cursor: pointer;
-    font-weight: 600;
-    font-size: 1rem;
-    transition: all 0.2s ease;
+    font-size: 0.9em;
+    border-left: 3px solid transparent;
 }
 
-#botonEnviar {
-    background-color: #10a37f; /* Verde ChatGPT */
-    color: white;
+.btn-seccion.activa { 
+    background: #333; 
+    border-left: 3px solid #007acc; 
 }
 
-#botonEnviar:hover {
-    background-color: #1a7f64;
-    transform: translateY(-2px); /* Pequeño salto al pasar el mouse */
+/* ÁREA DE CHAT */
+.chat-area { 
+    flex: 1; 
+    display: flex; 
+    flex-direction: column; 
+    background-color: #212121;
 }
 
-#botonDetener {
-    background-color: #ef4444; /* Rojo suave */
-    color: white;
+#pantalla { 
+    flex: 1; 
+    overflow-y: auto; 
+    padding: 40px 15% 20px 15%; /* Centra el contenido como ChatGPT */
+    display: flex; 
+    flex-direction: column; 
+    gap: 20px;
 }
 
-#botonDetener:hover {
-    background-color: #bd3232;
-    transform: translateY(-2px);
+/* BURBUJAS Y AVATAR */
+.fila-mensaje { display: flex; width: 100%; }
+.fila-usuario { justify-content: flex-end; }
+.fila-robot { justify-content: flex-start; }
+
+.mensaje { 
+    max-width: 85%; 
+    padding: 15px; 
+    border-radius: 12px; 
+    line-height: 1.5;
+    display: flex;
+    align-items: flex-start;
 }
 
-/* Personalización del scroll (barra de texto) */
-#pantalla::-webkit-scrollbar {
-    width: 6px;
+.usuario { background-color: #333; color: white; }
+.robot { background-color: transparent; color: #ececec; }
+
+.avatar-chat { 
+    width: 32px; 
+    height: 32px; 
+    border-radius: 4px; 
+    margin-right: 15px; 
+    object-fit: cover;
 }
-#pantalla::-webkit-scrollbar-thumb {
-    background: #565869;
-    border-radius: 10px;
+
+/* INPUT Y BOTONES */
+.entrada-area { 
+    padding: 20px 15% 40px 15%; 
+    background: linear-gradient(transparent, #212121 50%);
 }
+
+.input-container {
+    background: #2f2f2f;
+    border-radius: 12px;
+    padding: 10px;
+    border: 1px solid #444;
+}
+
+#entrada-usuario { 
+    width: 100%; 
+    background: transparent; 
+    border: none; 
+    color: white; 
+    padding: 10px; 
+    font-size: 16px;
+    outline: none;
+}
+
+.botones-grupo { 
+    display: flex; 
+    justify-content: flex-end; 
+    gap: 8px; 
+    margin-top: 5px;
+}
+
+.botones-grupo button { 
+    padding: 6px 15px; 
+    border-radius: 6px; 
+    border: none; 
+    cursor: pointer; 
+    font-size: 13px;
+}
+
+#botonEnviar { background-color: #007acc; color: white; }
+#btn-detener { background-color: #444; color: #ccc; }
