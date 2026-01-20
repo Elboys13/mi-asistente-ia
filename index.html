@@ -3,28 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>WikiBot</title>
+    <title>WikiBot Pro 2026</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <button id="menu-toggle" class="btn-menu">☰</button>
+    <button id="menu-toggle" class="btn-menu">
+        ☰
+    </button>
 
     <div class="contenedor-principal">
         
         <aside class="barra-lateral" id="barra-lateral">
             <div class="header-sidebar">
-                <button id="nueva-seccion" class="btn-nuevo">+ Nueva Conversación</button>
+                <button id="nueva-seccion" class="btn-nuevo">
+                    <span>+</span> Nueva Conversación
+                </button>
             </div>
+            
             <div id="lista-secciones" class="lista-secciones"></div>
         </aside>
 
         <main class="chat-area">
+            
             <section id="pantalla" class="pantalla-mensajes"></section>
 
             <footer class="entrada-area">
                 <div class="input-container">
-                    <input type="text" id="entrada-usuario" placeholder="Pregunta algo..." autocomplete="off">
+                    <input type="text" id="entrada-usuario" placeholder="Pregunta algo sobre YT, IG o FB..." autocomplete="off">
                     
                     <div class="botones-derecha">
                         <button id="btn-detener" class="btn-stop">Detener</button>
@@ -32,6 +38,7 @@
                     </div>
                 </div>
             </footer>
+
         </main>
     </div>
 

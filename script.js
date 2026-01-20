@@ -1,4 +1,26 @@
 window.onload = () => {
+    // Asegúrate de que estos nombres coincidan con los IDs de tu HTML
+const btnMenu = document.getElementById('menu-toggle');
+const barraLateral = document.getElementById('barra-lateral');
+const pantallaChat = document.getElementById('pantalla');
+
+if (btnMenu && barraLateral) {
+    btnMenu.onclick = (e) => {
+        // Esto evita que el clic se propague a otros elementos
+        e.stopPropagation();
+        // Agregamos o quitamos la clase "abierta"
+        barraLateral.classList.toggle('abierta');
+        console.log("Menú clickeado"); // Esto es para que veas en la consola si funciona
+    };
+
+    // Si el usuario toca el chat mientras el menú está abierto, que se cierre solo
+    pantallaChat.onclick = () => {
+        if (barraLateral.classList.contains('abierta')) {
+            barraLateral.classList.remove('abierta');
+        }
+    };
+}
+
     const pantalla = document.getElementById('pantalla');
     const entradaUsuario = document.getElementById('entrada-usuario');
     const btnEnviar = document.getElementById('botonEnviar');
@@ -14,22 +36,35 @@ window.onload = () => {
         "fb": "Facebook", "ig": "Instagram", "tw": "Twitter/X", "tk": "TikTok", "yt": "YouTube" 
     };
 
-    function detenerEscritura() {
-        if (intervaloEscritura) {
-            clearInterval(intervaloEscritura);
-            intervaloEscritura = null;
-        }
+   function detenerEscritura() {
+    if (intervaloEscritura) {
+        clearInterval(intervaloEscritura);
+        intervaloEscritura = null;
+        // OCULTAR EL BOTÓN cuando se detiene
+        document.getElementById('btn-detener').classList.remove('activo');
     }
+}
 
-    if (btnStop) {
-        btnStop.onclick = () => {
-            detenerEscritura();
-            const aviso = document.createElement('span');
-            aviso.style.color = '#ff4444';
-            aviso.textContent = " [Detenido]";
-            pantalla.lastChild.querySelector('.mensaje').appendChild(aviso);
-        };
-    }
+function animarRespuesta(texto, seccion, elementoSpan) {
+    detenerEscritura();
+    
+    // MOSTRAR EL BOTÓN cuando empieza a escribir
+    document.getElementById('btn-detener').classList.add('activo');
+
+    let span = elementoSpan || mostrarBurbuja("", 'robot');
+    seccion.mensajes.push({ texto: texto, clase: 'robot' });
+    let i = 0;
+    span.textContent = "";
+
+    intervaloEscritura = setInterval(() => {
+        if (i < texto.length) {
+            span.textContent += texto[i++];
+            pantalla.scrollTop = pantalla.scrollHeight;
+        } else { 
+            detenerEscritura(); // Esto apaga el botón al terminar
+        }
+    }, 15);
+}
 
     function mostrarBurbuja(texto, clase) {
         const fila = document.createElement('div');
